@@ -51,7 +51,7 @@ const RegisterPage = () => {
   };
 
   return (
-    <div className="h-screen flex items-center">
+    <div className="flex items-center mt-32">
       <Card className="mx-auto max-w-sm">
         <CardHeader>
           <CardTitle className="text-xl">Regístrate!</CardTitle>
