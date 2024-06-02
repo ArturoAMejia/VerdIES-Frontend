@@ -7,7 +7,6 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-// import { AuthProviders } from "@/components/ui/AuthProviders";
 import * as z from "zod";
 import {
   Form,
@@ -23,10 +22,12 @@ import { useRegisterUser } from "@/hooks/useAuth";
 import { Link, Navigate } from "react-router-dom";
 
 const registerSchema = z.object({
-  first_name: z.string(),
-  lastname: z.string(),
+  name: z.string(),
   email: z.string().email({ message: "Correo inválido" }),
   password: z
+    .string()
+    .min(8, { message: "La contraseña debe tener al menos 8 caracteres" }),
+  password_confirmation: z
     .string()
     .min(8, { message: "La contraseña debe tener al menos 8 caracteres" }),
 });
@@ -65,23 +66,10 @@ const RegisterPage = () => {
               <div className="grid grid-cols-2 gap-4">
                 <FormField
                   control={form.control}
-                  name="first_name"
+                  name="name"
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Nombre</FormLabel>
-                      <FormControl>
-                        <Input {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="lastname"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Apellido</FormLabel>
                       <FormControl>
                         <Input {...field} />
                       </FormControl>
@@ -110,6 +98,19 @@ const RegisterPage = () => {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Contraseña</FormLabel>
+                    <FormControl>
+                      <Input {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="password_confirmation"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Confirmación contraseña</FormLabel>
                     <FormControl>
                       <Input {...field} />
                     </FormControl>
