@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/carousel";
 import { Hero } from "@/components/ui/Hero";
 import { Link } from "react-router-dom";
+import Autoplay from "embla-carousel-autoplay";
 
 const HomePage = () => {
   return (
@@ -42,9 +43,8 @@ const HomePage = () => {
               <div className="bg-white p-4 dark:bg-gray-950">
                 <h3 className="font-bold text-xl">Botellas pláticas</h3>
                 <p className="text-sm text-gray-500">
-                  Botellas de refrescos, jugos naturales, envases plásticos
+                  Botellas de refrescos, jugos naturales
                 </p>
-                <h4 className="font-semibold text-lg md:text-xl">$2.99/lb</h4>
               </div>
             </div>
             <div className="relative group overflow-hidden rounded-lg shadow-lg hover:shadow-xl transition-transform duration-300 ease-in-out hover:-translate-y-2">
@@ -63,7 +63,6 @@ const HomePage = () => {
                 <p className="text-sm text-gray-500">
                   Cajas de cartón, envases de huevos, etc
                 </p>
-                <h4 className="font-semibold text-lg md:text-xl">$4.99/lb</h4>
               </div>
             </div>
             <div className="relative group overflow-hidden rounded-lg shadow-lg hover:shadow-xl transition-transform duration-300 ease-in-out hover:-translate-y-2">
@@ -82,9 +81,6 @@ const HomePage = () => {
                 <p className="text-sm text-gray-500">
                   Latas de refrescos, productos enlatados
                 </p>
-                <h4 className="font-semibold text-lg md:text-xl">
-                  $3.49/bunch
-                </h4>
               </div>
             </div>
           </div>
@@ -95,29 +91,28 @@ const HomePage = () => {
           <div className="space-y-8">
             <div className="text-center">
               <h1 className="text-4xl font-bold text-[#333] mb-4">
-                Nuestros Productos Más Reciclados
+                Nuestros producto más reciclado
               </h1>
               <p className="text-lg text-[#666] max-w-2xl mx-auto">
                 En VerdIES, nos enorgullece nuestro compromiso con la
                 sostenibilidad.
               </p>
             </div>
-            <div className="">
-              <div className="bg-white rounded-lg shadow-md overflow-hidden">
-                <img
-                  src="/placeholder.svg"
-                  alt="Producto 1"
-                  className="w-full h-48 object-cover"
-                />
-                <div className="p-4">
-                  <h3 className="text-xl font-bold text-[#333] mb-2">
-                    Producto 1
-                  </h3>
-                  <p className="text-[#666] mb-4">
-                    Descripción breve del producto 1 hecho con materiales
-                    reciclados.
-                  </p>
-                </div>
+
+            <div className="bg-white rounded-lg shadow-md overflow-hidden">
+              <img
+                src="/placeholder.svg"
+                alt="Producto 1"
+                className="w-full h-48 object-cover"
+              />
+              <div className="p-4">
+                <h3 className="text-xl font-bold text-[#333] mb-2">
+                  Producto 1
+                </h3>
+                <p className="text-[#666] mb-4">
+                  Descripción breve del producto 1 hecho con materiales
+                  reciclados.
+                </p>
               </div>
             </div>
           </div>
@@ -126,19 +121,30 @@ const HomePage = () => {
       <section className="flex flex-col md:flex-row items-center justify-between gap-8 py-20 px-4 md:px-8 max-w-[1400px] mx-auto">
         <div className="space-y-6 max-w-lg">
           <h1 className="text-4xl md:text-5xl font-bold">
-            Discover the Best Destinations
+            Recolección de plástico
           </h1>
           <p className="text-muted-foreground text-lg">
-            Explore our curated collection of stunning travel destinations.
+            Reciclar plástico ayuda a disminuir la cantidad de residuos que
+            terminan en los vertederos, prolongando su vida útil y reduciendo la
+            necesidad de crear nuevos vertederos.
           </p>
-          <Button>Explore Now</Button>
+          <Button>
+            <Link to="/quienes-somos">Conocé más</Link>
+          </Button>
         </div>
         <div className="w-full md:w-[50%] relative">
-          <Carousel className="rounded-lg overflow-hidden">
+          <Carousel
+            className="rounded-lg overflow-hidden"
+            plugins={[
+              Autoplay({
+                delay: 3000,
+              }),
+            ]}
+          >
             <CarouselContent>
               <CarouselItem>
                 <img
-                  src="/placeholder.svg"
+                  src="/img/carrousel-1.jpeg"
                   alt="Destination 1"
                   width={600}
                   height={400}
@@ -147,7 +153,7 @@ const HomePage = () => {
               </CarouselItem>
               <CarouselItem>
                 <img
-                  src="/placeholder.svg"
+                  src="/img/carrousel-2.jpeg"
                   alt="Destination 2"
                   width={600}
                   height={400}
@@ -156,7 +162,7 @@ const HomePage = () => {
               </CarouselItem>
               <CarouselItem>
                 <img
-                  src="/placeholder.svg"
+                  src="/img/carrousel-3.jpeg"
                   alt="Destination 3"
                   width={600}
                   height={400}
