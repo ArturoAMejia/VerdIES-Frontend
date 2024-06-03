@@ -19,7 +19,8 @@ import {
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRegisterUser } from "@/hooks/useAuth";
-import { Link, Navigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const registerSchema = z.object({
   name: z.string(),
@@ -35,20 +36,30 @@ const registerSchema = z.object({
 type FormDataType = z.infer<typeof registerSchema>;
 
 const RegisterPage = () => {
-  // const pathname = useLocation();
+  const navigate = useNavigate();
 
-  const form = useForm<FormDataType>({ resolver: zodResolver(registerSchema) });
+  const form = useForm<FormDataType>({
+    resolver: zodResolver(registerSchema),
+    mode: "onChange",
+    defaultValues: {
+      name: "",
+      email: "",
+      password: "",
+      password_confirmation: "",
+    },
+  });
 
-  const { mutate, isError } = useRegisterUser();
+  const register = useRegisterUser();
 
   const onRegisterUser = async (data: FormDataType) => {
-    mutate(data);
-
-    if (isError) {
-      console.log("Error al registrar");
+    try {
+      await register.mutateAsync(data);
+      toast.success("Usuario creado correctamente");
+      toast.success("Por favor verificar su correo electrónico");
+      navigate("/auth/login");
+    } catch (error) {
+      toast.error(error.response.data.error);
     }
-
-    <Navigate to="/auth/login" />;
   };
 
   return (
@@ -63,21 +74,19 @@ const RegisterPage = () => {
         <CardContent>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onRegisterUser)}>
-              <div className="grid grid-cols-2 gap-4">
-                <FormField
-                  control={form.control}
-                  name="name"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Nombre</FormLabel>
-                      <FormControl>
-                        <Input {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </div>
+              <FormField
+                control={form.control}
+                name="name"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Nombre</FormLabel>
+                    <FormControl>
+                      <Input {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
               <FormField
                 control={form.control}
@@ -99,7 +108,7 @@ const RegisterPage = () => {
                   <FormItem>
                     <FormLabel>Contraseña</FormLabel>
                     <FormControl>
-                      <Input {...field} />
+                      <Input {...field} type="password" />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -112,13 +121,13 @@ const RegisterPage = () => {
                   <FormItem>
                     <FormLabel>Confirmación contraseña</FormLabel>
                     <FormControl>
-                      <Input {...field} />
+                      <Input {...field} type="password" />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
-              <Button type="submit" className="w-full">
+              <Button type="submit" className="w-full mt-2">
                 Crear Cuenta
               </Button>
             </form>
