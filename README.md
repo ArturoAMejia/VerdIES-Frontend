@@ -13,5 +13,11 @@ npm i
 ### Crear variable de entorno
 
 `env
-API_URL=
+VITE_API_URL=http://localhost:8000
+`
+
+### Ejecutar servidor de desarrollo
+
+`npm
+npm run dev
 `
