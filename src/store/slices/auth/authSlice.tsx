@@ -12,5 +12,5 @@ export const authSlice: StateCreator<IAuthState> = (set) => ({
   user: null,
   isAuth: false,
   setUser: (user: IUser) => set({ user, isAuth: true }),
-  logout: () => set({ user: null }),
+  logout: () => set({ user: null, isAuth: false }),
 });

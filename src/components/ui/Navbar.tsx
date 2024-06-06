@@ -3,8 +3,10 @@ import { SheetTrigger, SheetContent, Sheet } from "@/components/ui/sheet";
 import { MenuIcon } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Logo } from "./Logo";
+import { useAppStore } from "@/store/store";
 
 export default function Navbar() {
+  const { logout, isAuth } = useAppStore((state) => state);
   return (
     <header className="flex h-20 w-full items-center justify-between px-8 md:px-12 bg-[#C0E9DA]">
       <Link className="flex items-center" to="#">
@@ -37,6 +39,28 @@ export default function Navbar() {
         >
           Canjear
         </Link>
+        {!isAuth && (
+          <>
+            <Button>
+              <Link
+                className="font-bold text-sm hover:underline hover:underline-offset-4"
+                to="/auth/login"
+              >
+                Iniciar sesión
+              </Link>
+            </Button>
+            <Button className="bg-[#4A5F7E]">
+              <Link
+                className="font-bold text-sm hover:underline hover:underline-offset-4"
+                to="/auth/register"
+              >
+                Regístrate
+              </Link>
+            </Button>
+          </>
+        )}
+
+        {isAuth && <Button onClick={() => logout()}>Cerrar sesión</Button>}
       </nav>
       <Sheet>
         <SheetTrigger asChild>
@@ -71,6 +95,22 @@ export default function Navbar() {
             >
               Canjear
             </Link>
+            <Button>
+              <Link
+                className="font-bold text-sm hover:underline hover:underline-offset-4"
+                to="/auth/login"
+              >
+                Iniciar sesión
+              </Link>
+            </Button>
+            <Button className="bg-[#4A5F7E]">
+              <Link
+                className="font-bold text-sm hover:underline hover:underline-offset-4"
+                to="/auth/register"
+              >
+                Regístrate
+              </Link>
+            </Button>
           </div>
         </SheetContent>
       </Sheet>

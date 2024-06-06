@@ -25,20 +25,12 @@ export const router = createBrowserRouter([
       //       element: <Dashboard />,
       //     },
       //     {
-      //       path: "bears",
-      //       element: <BearPage />,
+      //       path: "profile",
+      //       element: <Profile />,
       //     },
       //     {
-      //       path: "person",
-      //       element: <PersonPage />,
-      //     },
-      //     {
-      //       path: "tasks",
-      //       element: <JiraPage />,
-      //     },
-      //     {
-      //       path: "wedding-invitation",
-      //       element: <WeddingInvitationPage />,
+      //       path: "settings",
+      //       element: <Settings />,
       //     },
       //   ],
       // },
